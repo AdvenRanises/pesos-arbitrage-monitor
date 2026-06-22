@@ -37,3 +37,12 @@ python -m src.main
 ```bash
 pytest
 ```
+
+## Live Demo
+Real-time output from the pipeline:
+
+```text
+=== STARTING PESOS ARBITRAGE MONITOR ===
+[2026-06-22 14:02:50] AAPL: ₱17,563.89 PHP ($301.79 USD)
+[2026-06-22 14:02:51] BTC/USD: ₱3,804,212.74 PHP ($65,364.48 USD)
+[2026-06-22 14:02:51] MSFT: ₱22,050.82 PHP ($378.88 USD)
