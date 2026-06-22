@@ -1,41 +1,70 @@
-# Global Arbitrage Monitor
+# High-Resiliency Global Arbitrage Monitor
 
-Live stock/crypto prices in 180+ currencies via TwelveData + Frankfurter.
+A production-ready, object-oriented Python micro-utility designed to parse live international financial asset streams and accurately evaluate valuations across **180+ global currencies** using real-time exchange rates.
 
-## Setup
+## Key Engineering Features
+* **Global Multi-Currency Support:** Convert any asset to EUR, GBP, JPY, AUD, CAD, CHF, CNY, HKD, SGD, SEK, KRW, NOK, NZD, INR, MXN, ZAR, BRL, PHP, TRY, and 180+ more via live Frankfurter rates.
+* **Intelligent Rate Caching:** Exchange rates cached for 30 minutes (1 API call = 180+ conversions).
+* **Zero-Crash Resiliency:** Integrated with exponential backoff network retry strategies via `tenacity`.
+* **Type-Safe Parsing:** Runtime data schema verification powered by `pydantic v2`.
+* **Automated CI/CD:** Native testing pipeline running via GitHub Actions on every codebase mutation.
+
+## Architecture
+* **TwelveData API:** Fetches live USD asset prices (3 calls for 3 stocks).
+* **Frankfurter API:** Fetches live exchange rates for 180+ currencies (1 call cached).
+* **Local Conversion:** All 57 currency conversions computed locally (0 additional API calls).
+
+## Project Structure
+* `src/` - Production modules (Configuration, Data Validation, Exchange Service, Extractor).
+* `tests/` - Robust isolated automated test blocks.
+
+## Execution Matrix
+
+### Prerequisites
+Ensure you have Python 3.10+ installed and a valid API access token from [TwelveData](https://twelvedata.com).
+
+### Local Initialization
+1. Clone this repository.
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
+```
+3. Copy environment template:
+```bash
 cp .env.example .env
-# Add TWELVEDATA_API_KEY to .env
+```
+4. Edit `.env` with your real API key.
+
+### Booting the Pipeline
+```bash
 python -m src.main
 ```
 
-## Live Demo
-```text
-=== MULTI-CURRENCY ARBITRAGE MONITOR ===
-
---- AAPL ---
-  [14:16:59] ₱17,562.43 PHP ($301.76 USD)
-  [14:17:02] €277.62 EUR ($301.76 USD)
-  [14:17:07] ¥47,527.20 JPY ($301.76 USD)
-  [14:17:09] £238.32 GBP ($301.67 USD)
-
---- MSFT ---
-  [14:17:11] ₱21,911.72 PHP ($376.49 USD)
-  [14:17:15] €346.32 EUR ($376.43 USD)
-  [14:17:17] ¥59,288.51 JPY ($376.44 USD)
-  [14:17:19] £297.44 GBP ($376.50 USD)
-
---- BTC/USD ---
-  [14:17:20] ₱3,790,332.62 PHP ($65,125.99 USD)
-  [14:18:03] £51,425.06 GBP ($65,095.01 USD)
-
-```
-
-## Tests
+## Continuous Integration Verification
 ```bash
 pytest
 ```
 
-## License
-MIT
+## Live Demo
+Real-time multi-currency output:
+
+```text
+=== MULTI-CURRENCY ARBITRAGE MONITOR ===
+
+--- AAPL ---
+  [14:20:30] ₱17,534.79 PHP ($301.29 USD)
+  [14:20:32] €277.04 EUR ($301.13 USD)
+  [14:20:34] ¥47,427.97 JPY ($301.13 USD)
+  [14:20:36] £237.90 GBP ($301.14 USD)
+
+--- MSFT ---
+  [14:20:37] ₱21,861.67 PHP ($375.63 USD)
+  [14:20:40] €345.58 EUR ($375.63 USD)
+  [14:20:48] ¥59,164.88 JPY ($375.65 USD)
+  [14:20:52] £296.76 GBP ($375.65 USD)
+
+--- BTC/USD ---
+  [14:21:04] ₱3,788,142.55 PHP ($65,088.36 USD)
+  [14:21:06] €59,882.48 EUR ($65,089.65 USD)
+  [14:21:08] ¥10,252,678.28 JPY ($65,096.37 USD)
+  [14:21:11] £51,416.49 GBP ($65,084.17 USD)
