@@ -1,48 +1,41 @@
-# High-Resiliency Currency & Stock Arbitrage Monitor
+# Global Arbitrage Monitor
 
-A production-ready, object-oriented Python micro-utility designed to parse live international financial asset streams and accurately evaluate valuations mapped directly to Philippine Pesos (PHP).
+Live stock/crypto prices in 180+ currencies via TwelveData + Frankfurter.
 
-## Key Engineering Features
-* **Zero-Crash Resiliency:** Integrated with exponential backoff network retry strategies via `tenacity`.
-* **Type-Safe Parsing:** Runtime data schema verification powered by `pydantic v2`.
-* **Automated CI/CD:** Native testing pipeline running via GitHub Actions on every codebase mutation.
-
-## Project Structure
-* `src/` - Production modules (Configuration, Data Validation, Extractor).
-* `tests/` - Robust isolated automated test blocks.
-
-## Execution Matrix
-
-### Prerequisites
-Ensure you have Python 3.10+ installed and a valid API access token from [TwelveData](https://twelvedata.com).
-
-### Local Initialization
-1. Clone this repository.
-2. Install dependencies:
+## Setup
 ```bash
 pip install -r requirements.txt
-```
-3. Copy environment template:
-```bash
 cp .env.example .env
-```
-4. Edit `.env` with your real API key.
-
-### Booting the Pipeline
-```bash
+# Add TWELVEDATA_API_KEY to .env
 python -m src.main
 ```
 
-## Continuous Integration Verification
+## Live Demo
+```text
+=== MULTI-CURRENCY ARBITRAGE MONITOR ===
+
+--- AAPL ---
+  [14:16:59] ₱17,562.43 PHP ($301.76 USD)
+  [14:17:02] €277.62 EUR ($301.76 USD)
+  [14:17:07] ¥47,527.20 JPY ($301.76 USD)
+  [14:17:09] £238.32 GBP ($301.67 USD)
+
+--- MSFT ---
+  [14:17:11] ₱21,911.72 PHP ($376.49 USD)
+  [14:17:15] €346.32 EUR ($376.43 USD)
+  [14:17:17] ¥59,288.51 JPY ($376.44 USD)
+  [14:17:19] £297.44 GBP ($376.50 USD)
+
+--- BTC/USD ---
+  [14:17:20] ₱3,790,332.62 PHP ($65,125.99 USD)
+  [14:18:03] £51,425.06 GBP ($65,095.01 USD)
+
+```
+
+## Tests
 ```bash
 pytest
 ```
 
-## Live Demo
-Real-time output from the pipeline:
-
-```text
-=== STARTING PESOS ARBITRAGE MONITOR ===
-[2026-06-22 14:02:50] AAPL: ₱17,563.89 PHP ($301.79 USD)
-[2026-06-22 14:02:51] BTC/USD: ₱3,804,212.74 PHP ($65,364.48 USD)
-[2026-06-22 14:02:51] MSFT: ₱22,050.82 PHP ($378.88 USD)
+## License
+MIT
