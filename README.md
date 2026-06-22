@@ -1,14 +1,21 @@
-# High-Resiliency Currency & Stock Arbitrage Monitor
+# High-Resiliency Global Arbitrage Monitor
 
-A production-ready, object-oriented Python micro-utility designed to parse live international financial asset streams and accurately evaluate valuations mapped directly to Philippine Pesos (PHP).
+A production-ready, object-oriented Python micro-utility designed to parse live international financial asset streams and accurately evaluate valuations across **180+ global currencies** using real-time exchange rates.
 
 ## Key Engineering Features
+* **Global Multi-Currency Support:** Convert any asset to EUR, GBP, JPY, AUD, CAD, CHF, CNY, HKD, SGD, SEK, KRW, NOK, NZD, INR, MXN, ZAR, BRL, PHP, TRY, and 180+ more via live Frankfurter rates.
+* **Intelligent Rate Caching:** Exchange rates cached for 30 minutes (1 API call = 180+ conversions).
 * **Zero-Crash Resiliency:** Integrated with exponential backoff network retry strategies via `tenacity`.
 * **Type-Safe Parsing:** Runtime data schema verification powered by `pydantic v2`.
 * **Automated CI/CD:** Native testing pipeline running via GitHub Actions on every codebase mutation.
 
+## Architecture
+* **TwelveData API:** Fetches live USD asset prices (3 calls for 3 stocks).
+* **Frankfurter API:** Fetches live exchange rates for 180+ currencies (1 call cached).
+* **Local Conversion:** All 57 currency conversions computed locally (0 additional API calls).
+
 ## Project Structure
-* `src/` - Production modules (Configuration, Data Validation, Extractor).
+* `src/` - Production modules (Configuration, Data Validation, Exchange Service, Extractor).
 * `tests/` - Robust isolated automated test blocks.
 
 ## Execution Matrix
